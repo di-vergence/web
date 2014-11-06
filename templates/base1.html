@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="/css/bootstrap.css">
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+	    <div class="navbar">
+		    <div class="navbar-inner">
+					    <a class="brand" href="#">Title</a>
+					    <ul class="nav">
+						<li>
+						    <form class="navbar-form pull-left">
+						   		<input type="text" class="span2">
+						    </form>
+						</li> 
+					    <li><a href="/ask/" class="btn offset2">ask</a></li>
+					    </ul>
+					    {% block log %}
+					    {% endblock %}
+			    		
+		    </div>
+    	</div>		
+
+		<div class="container">
+			<div class="row">
+				<div class="span9">
+					{% block main %}
+					{% endblock %}
+				</div>
+				<div class="span3">
+					<div>
+						<h3>Popular tegs</h3>
+
+						<a href="#">Hello</a>,
+						<a href="#">World</a>,
+						<a href="#">Dotan,Skyrim</a>
+					</div>
+					<div>
+						<h3>Cool users</h3>
+							<ul>
+								<li>ME</li>
+								<li>LAdsrfsfL</li>
+								<li>snop</li>
+								<li>dog</li>
+							</ul>
+						
+					</div>
+				</div>
+
+		</div>
+	</body>
+</html>	

@@ -1,0 +1,9 @@
+.ask-btn {
+	display: inline-block;
+	margin-left: 30%;
+}
+.question {
+		border: solid 1px lightgray;
+		margin-bottom: 30px;
+		padding: 20px 0px;	
+}
