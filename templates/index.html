@@ -2,37 +2,60 @@
 
 {% block main %}
 <h2>Best questions</h2>
-{% for i in "12345" %}
-<div class="question row">
-    <div class="span2"> 
-        <img src="https://ssl.webpack.de/lorempixel.com/120/120/" class="img-circle">
-    </div>
-    <div class="span6">
-        <h4><a href="#">you see that?</a></h4>
-        <p>kill all humans</p>
-        <div>
-            <a href="#">answer<span class="badge">33</span></a>
+{% for question in question_list %}
+    <div class="question row">
+        <div class="span2"> 
+            <img src="https://ssl.webpack.de/lorempixel.com/120/120/" class="img-circle">
+            <div class="like">
+                <p>rating <span class="badge">{{question.author.rating}}</span></p>
+            </div>
+        </div>
+        <div class="span6">
+            <h4><a href="/question/{{question.id}}">{{question.title}}</a></h4>
+                <p>{{question.text}}</p>
+            <div>
+                <a href="#">answer<span class="badge">{{question.answer__count}}</span></a>
+                <span>
+                    <span>Tags:</span>
+                    {% if question.tags %}
+                        {% for tag in question.tags.all %}
+                         {{tag.text_tag}}
+                        {% endfor %}
+                    {%else%}
+                     <span>None</span>
+                    {%endif%}
+                    
+                </span>
+            </div>
         </div>
     </div>
-</div>
-
 {% endfor %}
 
 <div class="pagination">
-    <ul>
-        <li><a href="#">Prev</a></li>
-        <li><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">Next</a></li>
+        <ul class="paginator">
+      {% if question_list.has_previous %}
+        <li><a href="?page={{ question_list.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+         <li><a href="?page={{ question_list.number }}">1</a></li>
+         <li><a href="?page={{ question_list.next_page_number }}">2</a></li>
+      {% endif %}
+      {% if question_list.has_previous %}
+        <li><a href="?page={{ question_list.previous_page_number }}">{{question_list.number}}</a></li>
+      {% endif%}
+      {% if question_list.has_next %}
+          <li><a href="?page={{ question_list.next_page_number }} ">&raquo;</a></li>
+      {% else %}
+         <li><a href="?page={{ question_list.previous_page_number }}">{{question_list.previous_page_number}}</a></li>
+         <li><a href="?page={{ question_list.number }}">{{question_list.number}}</a></li>
+      {% endif %}
     </ul>
 </div>
+
 {% endblock %}
 
 {% block log %}
 <ul class="nav pull-right">
-    <li><img src="https://ssl.webpack.de/lorempixel.com/40/40/" class="img-circle"></li>
+    <li><img src="https://ssl.webpack.de/lorempixel.com/30/30/" class="img-circle"></li>
     <li><a href="/settings/">setting</a></li>
     <li><a href="/login/">log out</a></li>
 </ul>

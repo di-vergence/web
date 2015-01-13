@@ -1,0 +1,30 @@
+{% extends "base1.html" %}
+
+{% block main %}
+
+<div class="question row">
+    <div class="span2"> 
+        <img src="https://ssl.webpack.de/lorempixel.com/120/120/" class="img-circle">
+    </div>
+    <div class="span6">
+        <h4><a href="/question/{{title.id}}">{{q.title | title}}</a></h4>
+	        <h5>{{q.text}}</h5>
+        <div>
+            <a href="#">answer<span class="badge">{{q.answer_set.count}}</span></a>
+        </div>
+    </div>
+</div>
+	{% for answer in answer_list %}
+<div class="question row">
+   <div class="span2"> 
+   		<img src="https://ssl.webpack.de/lorempixel.com/120/120/" class="img-circle">
+   </div>
+    <div class="span6">
+		<p>{{answer.text}}</p>
+		<div>
+			<h7>{{answer.author_id}}</h7>
+		</div>
+	</div>
+</div>
+	{% endfor%}
+{% endblock %}

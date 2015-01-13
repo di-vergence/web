@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar.apps.DebugToolbarConfig',
+    'newapl',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,6 +52,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'ask.urls'
@@ -62,8 +65,10 @@ WSGI_APPLICATION = 'ask.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'askdb',
+        'USER' : 'askuser',
+        'PASSWORD' : 'pass',
     }
 }
 
@@ -86,3 +91,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 #STATICFILES_DIRS = '/home/delr/study/ask/static'
+INTERNAL_IPS = ('127.0.0.1')
+
+DEBUG_TOOLBAR_PANELS = [
+'debug_toolbar.panels.versions.VersionsPanel',
+'debug_toolbar.panels.timer.TimerPanel',
+'debug_toolbar.panels.settings.SettingsPanel',
+'debug_toolbar.panels.headers.HeadersPanel',
+'debug_toolbar.panels.request.RequestPanel',
+'debug_toolbar.panels.sql.SQLPanel',
+'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+'debug_toolbar.panels.templates.TemplatesPanel',
+'debug_toolbar.panels.cache.CachePanel',
+'debug_toolbar.panels.signals.SignalsPanel',
+'debug_toolbar.panels.logging.LoggingPanel',
+'debug_toolbar.panels.redirects.RedirectsPanel',
+]

@@ -1,6 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from urlparse import parse_qs
+from django.template import loader, RequestContext, Context
+from django.db import models
+from newapl.models import *
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
+
 """
 def index(request):
 	output = '\nGET:'
@@ -25,8 +31,17 @@ def index(request):
 	
 	return HttpResponse(output)
 """
-def index(req):
-	return render(req,'index.html')
+def index(request):
+	title = Question.objects.prefetch_related('author','tags').order_by('date_added').annotate(Count('answer'))
+	paginator = Paginator(title,3)
+	page = request.GET.get('page')
+	try:
+		question_list = paginator.page(page)
+	except PageNotAnInteger:
+		question_list = paginator.page(1)
+	except EmptyPage:
+		question_list = paginator.page(paginator.num_pages)
+	return render(request,'index.html',{"question_list":question_list})
 
 def login(req):
 	return render(req,'login.html')
@@ -36,3 +51,9 @@ def signup(req):
 
 def register(req):
 	return render(req,'register.html')
+
+def question(req, question_id):
+	#tag = Tag.objects.prefetch_related('tags').get(pk=question_id)
+	q = Question.objects.get(id=question_id)
+	answer_list = Answer.objects.all().filter(question=question_id).select_related()
+	return render(req,'question.html',{"answer_list":answer_list,"q":q})
